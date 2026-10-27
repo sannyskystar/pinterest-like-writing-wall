@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Writing Wall</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600&family=Newsreader:opsz,wght@6..72,600&family=Noto+Sans+Bengali:wght@400;500&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box}body{margin:0;background:#fdfbf7;color:#1e2421;font-family:"Instrument Sans","Noto Sans Bengali",sans-serif}header{padding:14px 20px;border-bottom:1px solid #eee;display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;position:sticky;top:0;background:#fdfbf7f2;backdrop-filter:blur(8px)} .logo{font-family:"Newsreader",serif;font-size:24px;font-weight:600} input{flex:1;max-width:600px;height:42px;border-radius:999px;border:1px solid #e9e0cf;background:#fff8ed;padding:0 18px} .grid{max-width:1280px;margin:0 auto;padding:18px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px} @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}} .card{background:#fff;border:1px solid #eee6d5;border-radius:16px;overflow:hidden;cursor:pointer} .card img{width:100%;aspect-ratio:1/1;object-fit:cover} .meta{padding:10px 12px} .tags{font-size:11px;color:#8a7f6e} .title{font-size:13px;font-weight:600;font-family:"Newsreader",serif} .modal{position:fixed;inset:0;display:none;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:18px;z-index:30} .modal.open{display:flex} .box{background:#fffdf8;border-radius:20px;max-width:700px;width:100%;max-height:90vh;overflow:auto} .box img{width:100%;max-height:45vh;object-fit:cover} .content{padding:20px} .content .post{line-height:1.7} .content .post strong{font-weight:700} .content .post em{font-style:italic} .content .post code{background:#f3eadd;padding:2px 6px;border-radius:6px} .content .post a{color:#c07a5f}</style></head><body>
+<header><div class="logo">The Writing Wall</div><input id="q" placeholder="Search keywords — writing, বাংলা..."><div>v5.3 ZERO-FETCH</div></header>
+<div class="grid" id="grid"></div>
+<div class="modal" id="modal"><div class="box"><img id="mImg"><div class="content"><h2 id="mTitle"></h2><div id="mDate"></div><div id="mTags"></div><div class="post" id="mPost"></div></div></div></div>
+<script>
+const DATA = [{"id": "2026-10-26-03", "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&auto=format&fit=crop", "keywords": ["writing", "ideas", "desk"], "title": "The Architecture of Attention", "date": "2026-10-26", "post": "This is where the full post appears.\n\nYou can write **bold**, *italic*, and `code`.\n\n- List one\n- List two with a [link](https://example.com)\n\nএখানে বাংলাতেও লিখতে পারো।"}, {"id": "2026-10-26-02", "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&q=80&auto=format&fit=crop", "keywords": ["বাংলা", "লেখা", "ডায়েরি"], "title": "বাংলায় লেখা — প্রথম পোস্ট", "date": "2026-10-25", "post": "এটা **বাংলা** লেখা। *ইটালিক* কাজ করে।\n\n- পয়েন্ট এক\n- পয়েন্ট দুই"}, {"id": "2026-10-26-01", "image": "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=600&q=80&auto=format&fit=crop", "keywords": ["notes", "minimal"], "title": "Minimal Test", "date": "2026-10-24", "post": "Simple test post."}];
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function md(str){
+  let s=esc(str||'');
+  s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
+  s=s.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  s=s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank">$1</a>');
+  return s.split('\n').map(l=>{let m=l.match(/^\s*[-•]\s+(.*)/); if(m) return '<li>'+m[1]+'</li>'; return l==='' ? '<br>' : l+'<br>';}).join('').replace(/(<li>.*<\/li>)/g,'<ul>$1</ul>').replace(/<\/ul><ul>/g,'');
+}
+function render(){
+  const q=document.getElementById('q').value.toLowerCase();
+  const grid=document.getElementById('grid');
+  const f=DATA.filter(d=>!q|| (d.keywords.join(' ')+' '+d.title+' '+d.post).toLowerCase().includes(q));
+  grid.innerHTML=f.map(d=>`<div class="card" data-id="${d.id}"><img src="${d.image}"><div class="meta"><div class="tags">${d.keywords.join(' • ')}</div><div class="title">${d.title}</div></div></div>`).join('');
+  grid.querySelectorAll('.card').forEach(c=>c.onclick=()=>openPost(c.dataset.id));
+}
+function openPost(id){
+  const d=DATA.find(x=>x.id===id);
+  document.getElementById('mImg').src=d.image;
+  document.getElementById('mTitle').textContent=d.title;
+  document.getElementById('mDate').textContent=d.date;
+  document.getElementById('mTags').textContent=d.keywords.join(' • ');
+  document.getElementById('mPost').innerHTML=md(d.post);
+  document.getElementById('modal').classList.add('open');
+}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal') e.currentTarget.classList.remove('open')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape') document.getElementById('modal').classList.remove('open')});
+document.getElementById('q').addEventListener('input',render);
+DATA.sort((a,b)=>new Date(b.date)-new Date(a.date));
+render();
+console.log('v5.3 loaded', DATA.length);
+</script>
+</body></html>

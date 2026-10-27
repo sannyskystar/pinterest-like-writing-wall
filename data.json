@@ -1,0 +1,37 @@
+[
+  {
+    "id": "2026-10-26-03",
+    "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "writing",
+      "ideas",
+      "desk"
+    ],
+    "title": "The Architecture of Attention",
+    "date": "2026-10-26",
+    "post": "This is where the full post appears.\n\nYou can write **bold**, *italic*, and `code`.\n\n- List one\n- List two with a [link](https://example.com)\n\nএখানে বাংলাতেও লিখতে পারো।"
+  },
+  {
+    "id": "2026-10-26-02",
+    "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "বাংলা",
+      "লেখা",
+      "ডায়েরি"
+    ],
+    "title": "বাংলায় লেখা — প্রথম পোস্ট",
+    "date": "2026-10-25",
+    "post": "এটা **বাংলা** লেখা। *ইটালিক* কাজ করে।\n\n- পয়েন্ট এক\n- পয়েন্ট দুই"
+  },
+  {
+    "id": "2026-10-26-01",
+    "image": "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "notes",
+      "minimal"
+    ],
+    "title": "Minimal Test",
+    "date": "2026-10-24",
+    "post": "Simple test post."
+  }
+]
