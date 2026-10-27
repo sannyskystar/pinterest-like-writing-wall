@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Writing Wall v6.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF7ED; --bg-2:#FFEDD5; --text:#2d1f1a; --text-soft:#7a665c;
+  --card:#ffffff; --card-hover:#fffffe; --border:#f3e0cc; --accent:#e86a33;
+  --shadow:0 10px 40px rgba(45,31,26,0.08); --shadow-hover:0 18px 60px rgba(45,31,26,0.12);
+  --radius:18px; --toggle-bg:#2d1f1a; --toggle-fg:#FFF7ED;
+}
+[data-theme="dark"]{
+  --bg:#15100e; --bg-2:#201a17; --text:#f5ece6; --text-soft:#b9a89e;
+  --card:#221c19; --card-hover:#2a2220; --border:#3a2e28; --accent:#ff8a5b;
+  --shadow:0 10px 40px rgba(0,0,0,0.4); --shadow-hover:0 18px 60px rgba(0,0,0,0.55);
+  --toggle-bg:#FFF7ED; --toggle-fg:#15100e;
+}
+*{box-sizing:border-box}
+body{margin:0;background: radial-gradient(1200px 600px at 10% -10%, var(--bg-2) 0%, transparent 60%), var(--bg);color:var(--text);font-family:"Noto Sans Bengali","Plus Jakarta Sans",system-ui;transition:0.3s}
+.topbar{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:color-mix(in srgb, var(--bg) 78%, transparent);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:14px 20px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.logo-mark{width:40px;height:40px;border-radius:12px;background:var(--text);color:var(--bg);display:grid;place-items:center;font-family:"Fraunces";font-weight:700}
+.logo-text{font-family:"Fraunces";font-weight:700;font-size:21px}
+.top-actions{display:flex;gap:10px;align-items:center}
+.btn{border:1px solid var(--border);background:var(--card);color:var(--text);padding:9px 14px;border-radius:999px;font-size:13px;cursor:pointer}
+.btn-accent{background:var(--text);color:var(--bg)}
+.theme-toggle{width:58px;height:34px;border-radius:999px;background:var(--toggle-bg);border:2px solid var(--border);position:relative;cursor:pointer}
+.toggle-knob{width:26px;height:26px;border-radius:50%;background:var(--toggle-fg);position:absolute;left:3px;top:3px;display:grid;place-items:center;transition:0.35s cubic-bezier(.34,1.56,.64,1)}
+[data-theme="dark"] .toggle-knob{transform:translateX(24px)}
+.wrap{max-width:1280px;margin:0 auto;padding:28px 18px 80px}
+.hero h1{font-family:"Fraunces";font-size: clamp(32px,5vw,52px);line-height:0.95;letter-spacing:-0.04em;margin:0}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--text-soft);max-width:520px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 18px}
+.search{flex:1;min-width:220px;max-width:420px;display:flex;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:10px 14px}
+.search input{border:0;outline:0;background:transparent;width:100%;color:var(--text)}
+/* === FIXED CHIPS FOR DARK MODE === */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  padding:7px 14px;border-radius:999px;font-size:13px;cursor:pointer;
+  transition:0.2s;
+  font-weight:500;
+}
+.chip:hover{border-color:var(--text);transform:translateY(-1px)}
+.chip.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+[data-theme="dark"] .chip{background:#2e2521;color:#f5ece6;border-color:#4a3d38}
+[data-theme="dark"] .chip.active{background:#f5ece6;color:#15100e;border-color:#f5ece6}
+[data-theme="dark"] .chip:hover{background:#3a302c;border-color:#f5ece6}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;display:flex;flex-direction:column;transition:0.22s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.card.pinned{border:1.5px solid var(--accent)}
+.card-image{width:100%;height:180px;object-fit:cover;background:var(--bg-2);display:block}
+.card-body{padding:16px 16px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card-head{display:flex;justify-content:space-between;gap:8px}
+.card-title{font-family:"Fraunces";font-size:18px;line-height:1.2;margin:0}
+.card-date{font-size:11px;color:var(--text-soft);white-space:nowrap;margin-top:4px}
+.card-excerpt{font-size:13px;color:var(--text-soft);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;line-height:1.5}
+.card-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:8px}
+.meta-pill{font-size:11px;border:1px dashed var(--border);padding:3px 8px;border-radius:999px;color:var(--text-soft)}
+.tag{font-size:11px;background:color-mix(in srgb, var(--bg-2) 70%, var(--card));border:1px solid var(--border);padding:4px 9px;border-radius:999px;color:var(--text)}
+[data-theme="dark"] .tag{background:#2e2521;color:#e8ddd6;border-color:#4a3d38}
+.pinned-badge{position:absolute;top:10px;right:10px;font-size:10px;background:var(--accent);color:white;padding:3px 8px;border-radius:999px;letter-spacing:0.08em}
+.image-wrap{position:relative}
+
+.overlay{position:fixed;inset:0;background:rgba(20,12,10,0.48);backdrop-filter:blur(8px);z-index:80;display:none;place-items:center;padding:20px}
+.overlay.open{display:grid}
+.modal{max-width:760px;width:100%;max-height:90vh;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:0;box-shadow:0 30px 90px rgba(0,0,0,0.35)}
+.modal img{width:100%;height:320px;object-fit:cover;display:block}
+.modal-content{padding:24px}
+.md{line-height:1.75}
+.footer{margin-top:48px;border-top:1px solid var(--border);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--text-soft);font-size:13px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html"><div class="logo-mark">W</div><div class="logo-text">The Writing Wall</div></a>
+  <div class="top-actions">
+    <span id="status" style="font-size:12px;color:var(--text-soft)">v6.1 hybrid</span>
+    <button class="btn" id="shuffleBtn">🎲 Shuffle</button>
+    <button class="btn" id="sortBtn">↕ Newest</button>
+    <button class="theme-toggle" id="themeToggle"><div class="toggle-knob" id="toggleKnob">☀️</div></button>
+  </div>
+</div>
+<div class="wrap">
+  <div class="hero"><h1>Writings that <em>stay.</em></h1><p>Warm Pinterest wall with images. Reads data.json first, fallback embedded DATA.</p></div>
+  <div class="controls"><label class="search"><span>🔍</span><input id="q" placeholder="Search keywords, tags, title..."></label><div class="chips" id="chips"></div></div>
+  <div class="grid" id="grid"></div>
+  <div class="footer"><div>© 2026 The Writing Wall</div><div style="display:flex;gap:14px"><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a><a href="contact.html">Contact</a></div></div>
+</div>
+
+<div class="overlay" id="overlay"><div class="modal"><img id="mImg" src="" style="display:none"><div class="modal-content"><div style="display:flex;justify-content:space-between"><div><h2 id="mTitle" style="font-family:Fraunces;margin:0"></h2><div id="mMeta" class="meta-pill" style="margin-top:6px;display:inline-block"></div></div><button class="btn" id="closeBtn">✕</button></div><div id="mContent" class="md" style="margin-top:18px"></div><div style="display:flex;gap:8px;margin-top:18px"><button class="btn btn-accent" id="copyBtn">Copy link</button><button class="btn" id="shareBtn">Share</button></div></div></div></div>
+
+<script>
+// =============================================
+// OWNER_PIN_HERE — HOW TO PIN A POST (SEARCH THIS COMMENT)
+// Location: data.json AND embedded DATA in index.html
+// In data.json, set for any post: "pinned": true
+// Example:
+// {
+//   "id": 1,
+//   "title": "My post",
+//   "pinned": true   <-- OWNER_PIN_HERE - set true to pin, false to unpin
+// }
+// Only you (site owner) can do this by editing data.json / DATA.
+// No user can pin from frontend because there is NO account/login/backend.
+// =============================================
+
+const DATA = [
+  {
+    "id": 1,
+    "title": "প্রথম লেখা — First Light",
+    "date": "2026-10-25",
+    "tags": [
+      "poem",
+      "bengali",
+      "thought"
+    ],
+    "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80",
+    "content": "This is my **first post** on The Writing Wall.\n\nIt supports *italic*, **bold**, `inline code`, and [links](https://example.com).\n\n- Supports list\n- Bengali: আমার লেখা, আমার ভাবনা",
+    "pinned": true
+  },
+  {
+    "id": 2,
+    "title": "Night Thoughts",
+    "date": "2026-10-24",
+    "tags": [
+      "thought",
+      "night"
+    ],
+    "image": "https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?w=800&q=80",
+    "content": "Some nights are *heavy* with thoughts.\n\n**Writing** helps.",
+    "pinned": false
+  },
+  {
+    "id": 3,
+    "title": "On Minimalism",
+    "date": "2026-10-20",
+    "tags": [
+      "essay",
+      "life"
+    ],
+    "image": "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=800&q=80",
+    "content": "Minimal is **not empty**. Minimal is *intentional*.",
+    "pinned": false
+  },
+  {
+    "id": 4,
+    "title": "বাংলায় লেখা",
+    "date": "2026-10-18",
+    "tags": [
+      "bengali",
+      "poem"
+    ],
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+    "content": "বাংলা ভাষায় লেখার আনন্দই আলাদা।",
+    "pinned": false
+  },
+  {
+    "id": 5,
+    "title": "Why Frontend Only?",
+    "date": "2026-10-15",
+    "tags": [
+      "meta",
+      "thought"
+    ],
+    "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+    "content": "No backend = no bills, no downtime.",
+    "pinned": false
+  },
+  {
+    "id": 6,
+    "title": "Ideas for Tomorrow",
+    "date": "2026-10-10",
+    "tags": [
+      "ideas",
+      "list"
+    ],
+    "image": "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80",
+    "content": "- Add search\n- Add tags\n- Keep it warm",
+    "pinned": false
+  }
+];
+
+let POSTS=[]; let sortNewest=true; let activeTag=null;
+function markdownLite(md){
+  let s = md.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  s = s.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+  s = s.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g,"<em>$1</em>");
+  s = s.replace(/`([^`]+)`/g,"<code>$1</code>");
+  s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank">$1</a>');
+  s = s.replace(/^\s*-\s+(.+)$/gm,"<li>$1</li>");
+  s = s.replace(/(<li>.*<\/li>)/s, m => "<ul>"+m+"</ul>");
+  s = s.split(/\n{2,}/).map(p=>{p=p.trim(); if(!p) return ""; if(p.startsWith("<ul>")) return p; return "<p>"+p.replace(/\n/g,"<br>")+"</p>";}).join("");
+  return s;
+}
+function escapeHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function readingTime(t){return Math.max(1,Math.ceil(t.split(/\s+/).length/200))}
+async function loadData(){
+  try{
+    const r = await fetch("data.json",{cache:"no-store"}); if(!r.ok) throw 0;
+    const j = await r.json(); if(!Array.isArray(j)||!j.length) throw 0;
+    POSTS=j; document.getElementById("status").textContent="v6.1 • live from data.json";
+  }catch(e){ POSTS=DATA.slice(); document.getElementById("status").textContent="v6.1 • fallback embedded DATA"; }
+  renderChips(); render();
+}
+function renderChips(){
+  const tags=[...new Set(POSTS.flatMap(p=>p.tags||[]))].sort();
+  const el=document.getElementById("chips");
+  el.innerHTML='<button class="chip '+(activeTag===null?'active':'')+'" data-tag="">All</button>'+tags.map(t=>`<button class="chip ${activeTag===t?'active':''}" data-tag="${t}">#${t}</button>`).join("");
+  el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{activeTag=b.dataset.tag||null;renderChips();render();});
+}
+function filtered(){
+  let list=POSTS.slice(); list.sort((a,b)=> sortNewest? new Date(b.date)-new Date(a.date): new Date(a.date)-new Date(b.date));
+  if(activeTag) list=list.filter(p=>(p.tags||[]).includes(activeTag));
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  if(q) list=list.filter(p=>(p.title+" "+p.content+" "+(p.tags||[]).join(" ")).toLowerCase().includes(q));
+  return list;
+}
+function render(){
+  const grid=document.getElementById("grid"); const list=filtered();
+  if(!list.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;color:var(--text-soft);padding:40px">No posts</div>';return}
+  grid.innerHTML=list.map(p=>`
+    <article class="card ${p.pinned?'pinned':''}" data-id="${p.id}">
+      <div class="image-wrap">
+        ${p.image?`<img class="card-image" src="${p.image}" alt="" loading="lazy">`:`<div class="card-image" style="display:grid;place-items:center;color:var(--text-soft)">No image</div>`}
+        ${p.pinned?`<span class="pinned-badge">PINNED</span>`:""}
+      </div>
+      <div class="card-body">
+        <div class="card-head"><h3 class="card-title">${escapeHtml(p.title)}</h3><div class="card-date">${p.date}</div></div>
+        <div class="card-excerpt">${escapeHtml(p.content.slice(0,120))}</div>
+        <div class="card-meta"><span class="meta-pill">${readingTime(p.content)} min · ${p.content.split(/\s+/).length} words</span>${(p.tags||[]).slice(0,3).map(t=>`<span class="tag">#${escapeHtml(t)}</span>`).join("")}</div>
+      </div>
+    </article>`).join("");
+  grid.querySelectorAll(".card").forEach(el=>el.onclick=()=>openPost(Number(el.dataset.id)));
+}
+let currentId=null;
+function openPost(id){
+  const p=POSTS.find(x=>x.id===id); if(!p) return; currentId=id;
+  document.getElementById("mTitle").textContent=p.title;
+  document.getElementById("mMeta").textContent=`${p.date} · ${readingTime(p.content)} min`;
+  const imgEl=document.getElementById("mImg");
+  if(p.image){ imgEl.src=p.image; imgEl.style.display="block"; } else imgEl.style.display="none";
+  document.getElementById("mContent").innerHTML=markdownLite(p.content)+`<div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap">${(p.tags||[]).map(t=>`<span class="tag">#${t}</span>`).join("")}</div>`;
+  document.getElementById("overlay").classList.add("open");
+}
+function closePost(){document.getElementById("overlay").classList.remove("open")}
+document.getElementById("overlay").addEventListener("click",e=>{if(e.target.id==="overlay") closePost()});
+document.getElementById("closeBtn").onclick=closePost;
+document.getElementById("q").addEventListener("input",render);
+document.getElementById("sortBtn").onclick=()=>{sortNewest=!sortNewest;document.getElementById("sortBtn").textContent=sortNewest?"↕ Newest":"↕ Oldest";render();};
+document.getElementById("shuffleBtn").onclick=()=>{if(!POSTS.length) return; openPost(POSTS[Math.floor(Math.random()*POSTS.length)].id);};
+document.getElementById("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(location.href);alert("Copied")}catch{}};
+document.getElementById("shareBtn").onclick=async()=>{if(navigator.share){try{await navigator.share({title:document.getElementById("mTitle").textContent,url:location.href})}catch{}}};
+
+const toggle=document.getElementById("themeToggle"); const knob=document.getElementById("toggleKnob");
+function applyTheme(t){document.documentElement.setAttribute("data-theme",t);localStorage.setItem("ww-theme",t);knob.textContent=t==="dark"?"🌙":"☀️";}
+applyTheme(localStorage.getItem("ww-theme")|| (matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));
+toggle.onclick=()=>{const cur=document.documentElement.getAttribute("data-theme");applyTheme(cur==="dark"?"light":"dark");};
+loadData();
+</script>
+</body>
+</html>

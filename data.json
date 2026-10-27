@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "title": "প্রথম লেখা — First Light",
+    "date": "2026-10-25",
+    "tags": [
+      "poem",
+      "bengali",
+      "thought"
+    ],
+    "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80",
+    "content": "This is my **first post** on The Writing Wall.\n\nIt supports *italic*, **bold**, `inline code`, and [links](https://example.com).\n\n- Supports list\n- Bengali: আমার লেখা, আমার ভাবনা",
+    "pinned": true
+  },
+  {
+    "id": 2,
+    "title": "Night Thoughts",
+    "date": "2026-10-24",
+    "tags": [
+      "thought",
+      "night"
+    ],
+    "image": "https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?w=800&q=80",
+    "content": "Some nights are *heavy* with thoughts.\n\n**Writing** helps.",
+    "pinned": false
+  },
+  {
+    "id": 3,
+    "title": "On Minimalism",
+    "date": "2026-10-20",
+    "tags": [
+      "essay",
+      "life"
+    ],
+    "image": "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=800&q=80",
+    "content": "Minimal is **not empty**. Minimal is *intentional*.",
+    "pinned": false
+  },
+  {
+    "id": 4,
+    "title": "বাংলায় লেখা",
+    "date": "2026-10-18",
+    "tags": [
+      "bengali",
+      "poem"
+    ],
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+    "content": "বাংলা ভাষায় লেখার আনন্দই আলাদা।",
+    "pinned": false
+  },
+  {
+    "id": 5,
+    "title": "Why Frontend Only?",
+    "date": "2026-10-15",
+    "tags": [
+      "meta",
+      "thought"
+    ],
+    "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+    "content": "No backend = no bills, no downtime.",
+    "pinned": false
+  },
+  {
+    "id": 6,
+    "title": "Ideas for Tomorrow",
+    "date": "2026-10-10",
+    "tags": [
+      "ideas",
+      "list"
+    ],
+    "image": "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80",
+    "content": "- Add search\n- Add tags\n- Keep it warm",
+    "pinned": false
+  }
+]
