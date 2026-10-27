@@ -1,0 +1,98 @@
+[
+  {
+    "id": "2026-10-26-03",
+    "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "writing",
+      "ideas",
+      "desk"
+    ],
+    "title": "The Architecture of Attention",
+    "date": "2026-10-26",
+    "post": "This is where the full post appears. Replace with your writing."
+  },
+  {
+    "id": "2026-10-25-02",
+    "image": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "books",
+      "reading",
+      "creativity"
+    ],
+    "title": "Writing Like a Gardener",
+    "date": "2026-10-25",
+    "post": "Short post example."
+  },
+  {
+    "id": "2026-10-24-01",
+    "image": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "tech",
+      "minimal",
+      "focus"
+    ],
+    "title": "On Small Internets",
+    "date": "2026-10-24",
+    "post": "Small internets are cozy."
+  },
+  {
+    "id": "2026-10-22-04",
+    "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "team",
+      "ideas",
+      "work"
+    ],
+    "title": "Content Strategy for One",
+    "date": "2026-10-22",
+    "post": "You don't need a content calendar. Just a wall."
+  },
+  {
+    "id": "2026-10-20-02",
+    "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "space",
+      "technology",
+      "future"
+    ],
+    "title": "Twelve Ideas Worth Keeping",
+    "date": "2026-10-20",
+    "post": "List your ideas here."
+  },
+  {
+    "id": "2026-10-18-01",
+    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "data",
+      "technical",
+      "explaining"
+    ],
+    "title": "Field Guide to Explaining",
+    "date": "2026-10-18",
+    "post": "Explain by showing shape first."
+  },
+  {
+    "id": "2026-10-15-03",
+    "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "nature",
+      "calm",
+      "essay"
+    ],
+    "title": "Slow Reading",
+    "date": "2026-10-15",
+    "post": "Read with a pen."
+  },
+  {
+    "id": "2026-10-10-01",
+    "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "coding",
+      "writing",
+      "tech"
+    ],
+    "title": "Boring Tools Used Well",
+    "date": "2026-10-10",
+    "post": "Boring tools beat exciting tools."
+  }
+]
