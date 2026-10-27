@@ -1,0 +1,75 @@
+[
+  {
+    "id": "2026-10-18-the-architecture-of-attention",
+    "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80&auto=format&fit=crop",
+    "keywords": [
+      "attention",
+      "design",
+      "essays",
+      "ideas & essays"
+    ],
+    "title": "The Architecture of Attention",
+    "date": "2026-10-18",
+    "post": "Interfaces shape what we notice. A long essay on designing for pause in a world built for speed. \u2014 Full article can be added here."
+  },
+  {
+    "id": "2026-10-12-writing-like-a-gardener",
+    "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "creativity",
+      "process",
+      "creativity"
+    ],
+    "title": "Writing Like a Gardener",
+    "date": "2026-10-12",
+    "post": "Not every piece needs to be a building. Some writing is gardening. \u2014 Full article can be added here."
+  },
+  {
+    "id": "2026-10-08-a-field-guide-to-technical-explaining",
+    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop",
+    "keywords": [
+      "technical writing",
+      "explaining",
+      "technical writing"
+    ],
+    "title": "A Field Guide to Technical Explaining",
+    "date": "2026-10-08",
+    "post": "How to make complex topics readable without dumbing them down. Three moves that actually help. \u2014 Full article can be added here."
+  },
+  {
+    "id": "2026-09-29-on-small-internets",
+    "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "internet",
+      "indie web",
+      "technology"
+    ],
+    "title": "On Small Internets",
+    "date": "2026-09-29",
+    "post": "The best parts of the internet feel small. A note on cozy, human-scale websites. \u2014 Full article can be added here."
+  },
+  {
+    "id": "2026-09-18-twelve-ideas-worth-keeping",
+    "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "ideas",
+      "list",
+      "short reads"
+    ],
+    "title": "Twelve Ideas Worth Keeping",
+    "date": "2026-09-18",
+    "post": "A curated list of ideas that keep returning \u2014 on work, writing, and care. \u2014 Full article can be added here."
+  },
+  {
+    "id": "2026-09-10-content-strategy-for-one",
+    "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&auto=format&fit=crop",
+    "keywords": [
+      "content writing",
+      "solo",
+      "content writing"
+    ],
+    "title": "Content Strategy for One",
+    "date": "2026-09-10",
+    "post": "You don't need a content calendar. You need a system that respects a single writer's energy. \u2014 Full article can be added here."
+  }
+]

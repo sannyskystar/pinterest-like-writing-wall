@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "the-architecture-of-attention",
+    "title": "The Architecture of Attention",
+    "excerpt": "Interfaces shape what we notice. A long essay on designing for pause in a world built for speed.",
+    "category": "Ideas & Essays",
+    "tags": [
+      "attention",
+      "design",
+      "essays"
+    ],
+    "date": "2026-10-18",
+    "readingTime": 6,
+    "coverImage": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80&auto=format&fit=crop",
+    "featured": true,
+    "type": "editorial"
+  },
+  {
+    "slug": "writing-like-a-gardener",
+    "title": "Writing Like a Gardener",
+    "excerpt": "Not every piece needs to be a building. Some writing is gardening.",
+    "category": "Creativity",
+    "tags": [
+      "creativity",
+      "process"
+    ],
+    "date": "2026-10-12",
+    "readingTime": 3,
+    "coverImage": "",
+    "featured": false,
+    "type": "text"
+  },
+  {
+    "slug": "a-field-guide-to-technical-explaining",
+    "title": "A Field Guide to Technical Explaining",
+    "excerpt": "How to make complex topics readable without dumbing them down. Three moves that actually help.",
+    "category": "Technical Writing",
+    "tags": [
+      "technical writing",
+      "explaining"
+    ],
+    "date": "2026-10-08",
+    "readingTime": 5,
+    "coverImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop",
+    "featured": false,
+    "type": "editorial"
+  },
+  {
+    "slug": "on-small-internets",
+    "title": "On Small Internets",
+    "excerpt": "The best parts of the internet feel small. A note on cozy, human-scale websites.",
+    "category": "Technology",
+    "tags": [
+      "internet",
+      "indie web"
+    ],
+    "date": "2026-09-29",
+    "readingTime": 2,
+    "coverImage": "",
+    "featured": false,
+    "type": "short"
+  },
+  {
+    "slug": "twelve-ideas-worth-keeping",
+    "title": "Twelve Ideas Worth Keeping",
+    "excerpt": "A curated list of ideas that keep returning \u2014 on work, writing, and care.",
+    "category": "Short Reads",
+    "tags": [
+      "ideas",
+      "list"
+    ],
+    "date": "2026-09-18",
+    "readingTime": 3,
+    "coverImage": "",
+    "featured": false,
+    "type": "quote"
+  },
+  {
+    "slug": "content-strategy-for-one",
+    "title": "Content Strategy for One",
+    "excerpt": "You don't need a content calendar. You need a system that respects a single writer's energy.",
+    "category": "Content Writing",
+    "tags": [
+      "content writing",
+      "solo"
+    ],
+    "date": "2026-09-10",
+    "readingTime": 4,
+    "coverImage": "",
+    "featured": false,
+    "type": "text"
+  }
+]
