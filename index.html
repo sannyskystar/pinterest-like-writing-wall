@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Writing Wall</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,600&family=Noto+Sans+Bengali:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fdfbf7;color:#1e2421;font-family:"Instrument Sans","Noto Sans Bengali",system-ui,sans-serif}header{position:sticky;top:0;z-index:5;background:#fdfbf7f2;backdrop-filter:blur(12px);border-bottom:1px solid #eee8d8;padding:14px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap} .logo{font-family:"Newsreader",serif;font-weight:600;font-size:24px} .search-wrap{flex:1;max-width:760px} .search-wrap input{width:100%;height:44px;border-radius:999px;border:1px solid #e9e0cf;background:#fff8ed;padding:0 18px} .btn{height:36px;padding:0 14px;border-radius:999px;border:1px solid #e9e0cf;background:#fff;cursor:pointer} .grid{max-width:1280px;margin:0 auto;padding:18px 20px 80px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px} @media(max-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}} @media(max-width:700px){.grid{grid-template-columns:repeat(2,1fr)}} @media(max-width:460px){.grid{grid-template-columns:1fr}} .card{background:#fff;border:1px solid #eee6d5;border-radius:16px;overflow:hidden;cursor:pointer} .card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block} .meta{padding:10px 12px} .tags{font-size:11px;color:#8a7f6e} .title{font-size:13px;font-weight:600;margin-top:4px;font-family:"Newsreader",serif} .modal{position:fixed;inset:0;display:none;background:rgba(0,0,0,.55);z-index:30;align-items:center;justify-content:center;padding:18px} .modal.open{display:flex} .box{background:#fffdf8;border-radius:22px;max-width:760px;width:100%;max-height:90vh;overflow:auto} .box img{width:100%;max-height:48vh;object-fit:cover} .content{padding:22px 24px} .content .post{line-height:1.7;white-space:normal} .content .post strong{font-weight:700} .content .post em{font-style:italic} .content .post code{background:#f3eadd;padding:2px 6px;border-radius:6px} .content .post a{color:#c07a5f} .err{grid-column:1/-1;padding:40px;text-align:center;color:#c07a5f}
+body.dark{background:#111413;color:#eae6df} body.dark header{background:#111413f2;border-color:#242825} body.dark .card{background:#1b1f1d;border-color:#242825} body.dark .box{background:#191d1b}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">The Writing Wall</div>
+<div class="search-wrap"><input id="q" placeholder="Search keywords — writing, ideas, বাংলা..."></div>
+<div><button class="btn" id="theme">☾ Night</button></div>
+</header>
+<div class="grid" id="grid"></div>
+<div class="modal" id="modal"><div class="box"><img id="mImg"><div class="content"><h2 id="mTitle"></h2><div id="mDate" style="font-size:12px;color:#9a8f7e"></div><div id="mTags" style="font-size:11px;color:#8a7f6e;margin:8px 0 14px"></div><div class="post" id="mPost"></div></div></div></div>
+
+<script>
+// Theme
+const btn=document.getElementById('theme');
+const saved=localStorage.getItem('ww-theme');
+if(saved==='dark'){document.body.classList.add('dark');btn.textContent='☀ Day'}
+btn.onclick=()=>{document.body.classList.toggle('dark');const d=document.body.classList.contains('dark');localStorage.setItem('ww-theme',d?'dark':'light');btn.textContent=d?'☀ Day':'☾ Night'}
+
+// Fallback embedded data (so site NEVER shows blank like screenshot)
+const EMBEDDED_DATA = [{"id": "2026-10-26-03", "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&auto=format&fit=crop", "keywords": ["writing", "ideas", "desk"], "title": "The Architecture of Attention", "date": "2026-10-26", "post": "This is where the full post appears.\n\nYou can write **bold**, *italic*, and `code`.\n\n- List item one\n- List item two with a [link](https://example.com)\n\nSecond paragraph works.\n\nএখানে বাংলাতেও লিখতে পারো।"}, {"id": "2026-10-26-02", "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&q=80&auto=format&fit=crop", "keywords": ["বাংলা", "লেখা", "ডায়েরি"], "title": "বাংলায় লেখা — প্রথম পোস্ট", "date": "2026-10-25", "post": "এটা একটা **বাংলা** লেখার উদাহরণ।\n\nতুমি এখানে যেকোনো ভাষায় লিখতে পারো — বাংলা, ইংরেজি, হিন্দি সব চলবে।\n\n*ইটালিক*, **বোল্ড**, `কোড` — সব ফরম্যাট সাপোর্ট করে।\n\n- প্রথম পয়েন্ট\n- দ্বিতীয় পয়েন্ট\n\n[আরও পড়ো](https://example.com)"}, {"id": "2026-10-26-01", "image": "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=600&q=80&auto=format&fit=crop", "keywords": ["notes", "minimal"], "title": "Minimal Writing Test", "date": "2026-10-24", "post": "Plain English test.\n\n**Bold works**, *italic works*, and `inline code` works.\n\nYou can mix English and বাংলা in same post — no issue because file is UTF-8."}];
+
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function md(str){
+  if(!str) return '';
+  let s=escapeHtml(str);
+  s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
+  s=s.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  s=s.replace(/__([^_]+)__/g,'<strong>$1</strong>');
+  s=s.replace(/(^|[^*])\*([^*
+]+)\*(?=[^*]|$)/g,'$1<em>$2</em>');
+  s=s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank">$1</a>');
+  let lines=s.split('\n'),inUl=false,out=[];
+  for(let line of lines){let m=line.match(/^\s*[-•]\s+(.*)/);if(m){if(!inUl){out.push('<ul>');inUl=true}out.push('<li>'+m[1]+'</li>')}else{if(inUl){out.push('</ul>');inUl=false}if(line.trim()==='')out.push('<br>');else out.push(line+'<br>')}}
+  if(inUl) out.push('</ul>');
+  return out.join('');
+}
+
+let DATA=[];
+async function load(){
+  const grid=document.getElementById('grid');
+  try{
+    const r=await fetch('./data.json?v='+Date.now());
+    if(!r.ok) throw new Error('data.json HTTP '+r.status);
+    const j=await r.json();
+    if(Array.isArray(j) && j.length>0) DATA=j;
+    else throw new Error('data.json empty');
+  }catch(e){
+    console.warn('data.json failed, using embedded fallback', e);
+    DATA=EMBEDDED_DATA;
+  }
+  DATA.sort((a,b)=> new Date(b.date)-new Date(a.date));
+  render();
+}
+
+function render(){
+  const q=document.getElementById('q').value.toLowerCase().trim();
+  const grid=document.getElementById('grid');
+  const filtered=DATA.filter(d=>{
+    if(!q) return true;
+    const hay=(d.keywords.join(' ')+' '+d.title+' '+d.post).toLowerCase();
+    return hay.includes(q);
+  });
+  if(filtered.length===0){
+    grid.innerHTML='<div class="err">No posts found for "'+escapeHtml(q)+'"</div>';
+    return;
+  }
+  grid.innerHTML=filtered.map(d=>`
+    <div class="card" data-id="${d.id}">
+      <img loading="lazy" src="${d.image}" alt="">
+      <div class="meta"><div class="tags">${d.keywords.join(' • ')}</div><div class="title">${d.title}</div></div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.card').forEach(c=>c.onclick=()=>openPost(c.dataset.id));
+}
+function openPost(id){
+  const d=DATA.find(x=>x.id===id);
+  if(!d) return;
+  document.getElementById('mImg').src=d.image;
+  document.getElementById('mTitle').textContent=d.title;
+  document.getElementById('mDate').textContent=d.date;
+  document.getElementById('mTags').textContent=d.keywords.join(' • ');
+  document.getElementById('mPost').innerHTML=md(d.post);
+  document.getElementById('modal').classList.add('open');
+}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal') e.currentTarget.classList.remove('open')})
+document.addEventListener('keydown',e=>{if(e.key==='Escape') document.getElementById('modal').classList.remove('open')})
+document.getElementById('q').addEventListener('input',render);
+load();
+</script>
+</body>
+</html>
