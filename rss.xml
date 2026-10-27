@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+<title>The Writing Wall</title>
+<link>https://example.com/</link>
+<description>An evolving collection of writing</description>
+
+  <item>
+    <title>The Architecture of Attention</title>
+    <link>https://example.com/articles/the-architecture-of-attention/</link>
+    <description>Interfaces shape what we notice. A long essay on designing for pause in a world built for speed.</description>
+    <pubDate>2026-10-18</pubDate>
+    <category>Ideas & Essays</category>
+  </item>
+  <item>
+    <title>Writing Like a Gardener</title>
+    <link>https://example.com/articles/writing-like-a-gardener/</link>
+    <description>Not every piece needs to be a building. Some writing is gardening.</description>
+    <pubDate>2026-10-12</pubDate>
+    <category>Creativity</category>
+  </item>
+  <item>
+    <title>A Field Guide to Technical Explaining</title>
+    <link>https://example.com/articles/a-field-guide-to-technical-explaining/</link>
+    <description>How to make complex topics readable without dumbing them down. Three moves that actually help.</description>
+    <pubDate>2026-10-08</pubDate>
+    <category>Technical Writing</category>
+  </item>
+  <item>
+    <title>On Small Internets</title>
+    <link>https://example.com/articles/on-small-internets/</link>
+    <description>The best parts of the internet feel small. A note on cozy, human-scale websites.</description>
+    <pubDate>2026-09-29</pubDate>
+    <category>Technology</category>
+  </item>
+  <item>
+    <title>Twelve Ideas Worth Keeping</title>
+    <link>https://example.com/articles/twelve-ideas-worth-keeping/</link>
+    <description>A curated list of ideas that keep returning — on work, writing, and care.</description>
+    <pubDate>2026-09-18</pubDate>
+    <category>Short Reads</category>
+  </item>
+  <item>
+    <title>Content Strategy for One</title>
+    <link>https://example.com/articles/content-strategy-for-one/</link>
+    <description>You don't need a content calendar. You need a system that respects a single writer's energy.</description>
+    <pubDate>2026-09-10</pubDate>
+    <category>Content Writing</category>
+  </item>
+</channel></rss>

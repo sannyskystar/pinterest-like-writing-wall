@@ -1,0 +1,35 @@
+{
+  "brandName": "The Writing Wall",
+  "tagline": "A wall of words, ideas, and perspectives.",
+  "description": "An evolving collection of writing on technology, culture, creativity, and the ideas worth exploring.",
+  "logoText": "The Writing Wall",
+  "categories": [
+    "All Writing",
+    "Technology",
+    "Content Writing",
+    "Technical Writing",
+    "Ideas & Essays",
+    "Creativity",
+    "Short Reads"
+  ],
+  "accent": "terracotta",
+  "contact": {
+    "email": "hello@thewritingwall.example",
+    "portfolioLink": "#",
+    "links": [
+      {
+        "label": "Are.na",
+        "url": "#"
+      },
+      {
+        "label": "Read.cv",
+        "url": "#"
+      },
+      {
+        "label": "RSS",
+        "url": "/rss.xml"
+      }
+    ]
+  },
+  "themeDefault": "light"
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>On Small Internets — The Writing Wall</title>
+<meta name="description" content="The best parts of the internet feel small. A note on cozy, human-scale websites.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<meta property="og:title" content="On Small Internets">
+
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header><div class="container header-inner">
+<a class="logo" href="../../">The Writing Wall</a>
+<div class="actions"><button id="themeBtn" class="icon-btn" aria-label="Toggle theme">☀</button></div>
+</div></header>
+<main class="article-wrap">
+<a class="back" href="../../">← Back to wall</a>
+<div class="article-meta"><span>Technology</span><span>•</span><span>2026-09-29</span><span>•</span><span>2 min read</span></div>
+<h1>On Small Internets</h1>
+<p class="excerpt">The best parts of the internet feel small. A note on cozy, human-scale websites.</p>
+<div class="markdown">
+<h1 style="display:none">On Small Internets</h1>
+<p>The best parts of the internet feel small. A hand-built site. A weblog updated twice a month. A reading list that hasn't been optimized for anyone.</p>
+<p>Small internets ask you to linger. No metrics bar. No growth hack. Just words placed with care.</p>
+<p>Pinterest understood something: discovery is visual, but retention is editorial.</p>
+</div>
+<div class="related"><h3 style="font-family:var(--font-serif);font-weight:400">Related</h3><div class="related-grid"><a href="../the-architecture-of-attention/" class="card" style="margin:0"><div class="card-body"><div class="kicker">Ideas & Essays</div><h3 style="font-size:18px">The Architecture of Attention</h3><div class="card-meta">2026-10-18 • 6 min</div></div></a><a href="../writing-like-a-gardener/" class="card" style="margin:0"><div class="card-body"><div class="kicker">Creativity</div><h3 style="font-size:18px">Writing Like a Gardener</h3><div class="card-meta">2026-10-12 • 3 min</div></div></a></div></div>
+</main>
+<footer><div class="container">© The Writing Wall — <a href="../../">Back to wall</a></div></footer>
+<script>
+const b=document.getElementById('themeBtn');const s=localStorage.getItem('tww-theme');if(s)document.documentElement.setAttribute('data-theme',s);if(b){b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☾':'☀';b.addEventListener('click',()=>{const cur=document.documentElement.getAttribute('data-theme');const nxt=cur==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',nxt);localStorage.setItem('tww-theme',nxt);b.textContent=nxt==='dark'?'☾':'☀';});}
+window.addEventListener('scroll',()=>{const h=document.documentElement;const sc=h.scrollTop;const max=h.scrollHeight-h.clientHeight;document.getElementById('progress').style.width=(sc/max*100)+'%';});
+</script>
+</body>
+</html>

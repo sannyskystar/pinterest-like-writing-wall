@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Architecture of Attention — The Writing Wall</title>
+<meta name="description" content="Interfaces shape what we notice. A long essay on designing for pause in a world built for speed.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<meta property="og:title" content="The Architecture of Attention">
+<meta property="og:image" content="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80&auto=format&fit=crop">
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header><div class="container header-inner">
+<a class="logo" href="../../">The Writing Wall</a>
+<div class="actions"><button id="themeBtn" class="icon-btn" aria-label="Toggle theme">☀</button></div>
+</div></header>
+<main class="article-wrap">
+<a class="back" href="../../">← Back to wall</a>
+<div class="article-meta"><span>Ideas & Essays</span><span>•</span><span>2026-10-18</span><span>•</span><span>6 min read</span></div>
+<h1>The Architecture of Attention</h1>
+<p class="excerpt">Interfaces shape what we notice. A long essay on designing for pause in a world built for speed.</p>
+<div class="markdown">
+<h1 style="display:none">The Architecture of Attention</h1>
+<p>Interfaces are not neutral. Every feed, every notification badge, every infinite scroll is a small piece of architecture telling your attention where to go.</p>
+<h2>The cost of convenience</h2>
+<p>When everything is one swipe away, depth becomes expensive. We optimized for speed of access and lost the ritual of choosing what to read.</p>
+<blockquote>Attention is not just a resource. It is the way we compose a life.</blockquote>
+<ul><li>Design for pause, not just for flow</li><li>Make the reader choose</li><li>Leave white space for thought</li></ul>
+<p>The writing wall is an attempt to reclaim that choice: a slow, searchable collection you browse with intent, not reflex.</p>
+</div>
+<div class="related"><h3 style="font-family:var(--font-serif);font-weight:400">Related</h3><div class="related-grid"><a href="../writing-like-a-gardener/" class="card" style="margin:0"><div class="card-body"><div class="kicker">Creativity</div><h3 style="font-size:18px">Writing Like a Gardener</h3><div class="card-meta">2026-10-12 • 3 min</div></div></a><a href="../a-field-guide-to-technical-explaining/" class="card" style="margin:0"><div class="card-body"><div class="kicker">Technical Writing</div><h3 style="font-size:18px">A Field Guide to Technical Explaining</h3><div class="card-meta">2026-10-08 • 5 min</div></div></a></div></div>
+</main>
+<footer><div class="container">© The Writing Wall — <a href="../../">Back to wall</a></div></footer>
+<script>
+const b=document.getElementById('themeBtn');const s=localStorage.getItem('tww-theme');if(s)document.documentElement.setAttribute('data-theme',s);if(b){b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☾':'☀';b.addEventListener('click',()=>{const cur=document.documentElement.getAttribute('data-theme');const nxt=cur==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',nxt);localStorage.setItem('tww-theme',nxt);b.textContent=nxt==='dark'?'☾':'☀';});}
+window.addEventListener('scroll',()=>{const h=document.documentElement;const sc=h.scrollTop;const max=h.scrollHeight-h.clientHeight;document.getElementById('progress').style.width=(sc/max*100)+'%';});
+</script>
+</body>
+</html>

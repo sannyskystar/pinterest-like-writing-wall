@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Field Guide to Technical Explaining — The Writing Wall</title>
+<meta name="description" content="How to make complex topics readable without dumbing them down. Three moves that actually help.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<meta property="og:title" content="A Field Guide to Technical Explaining">
+<meta property="og:image" content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop">
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header><div class="container header-inner">
+<a class="logo" href="../../">The Writing Wall</a>
+<div class="actions"><button id="themeBtn" class="icon-btn" aria-label="Toggle theme">☀</button></div>
+</div></header>
+<main class="article-wrap">
+<a class="back" href="../../">← Back to wall</a>
+<div class="article-meta"><span>Technical Writing</span><span>•</span><span>2026-10-08</span><span>•</span><span>5 min read</span></div>
+<h1>A Field Guide to Technical Explaining</h1>
+<p class="excerpt">How to make complex topics readable without dumbing them down. Three moves that actually help.</p>
+<div class="markdown">
+<h1 style="display:none">A Field Guide to Technical Explaining</h1>
+<p>Good technical writing is not about sounding smart. It is about being kind to a future reader who is tired.</p>
+<h2>Three moves</h2>
+<h3>1. Name the invisible</h3>
+<p>Before you explain the tool, explain the problem it quietly solves.</p>
+<h3>2. Show the shape, then the details</h3>
+<p>Start with a 30-second mental model. Then layer.</p>
+<h3>3. Use the reader's words</h3>
+<p>Jargon is a shortcut for insiders and a wall for everyone else. Define it once, then use plain language.</p>
+<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop" alt="Abstract editorial diagram" loading="lazy">
+<p>Code examples should be the smallest thing that still works.</p>
+<pre><code>// explain by example
+function explain(topic) {
+  return clarify(topic).withKindness();
+}</code></pre>
+<p>If you can teach it, you understand it.</p>
+</div>
+<div class="related"><h3 style="font-family:var(--font-serif);font-weight:400">Related</h3><div class="related-grid"><a href="../the-architecture-of-attention/" class="card" style="margin:0"><div class="card-body"><div class="kicker">Ideas & Essays</div><h3 style="font-size:18px">The Architecture of Attention</h3><div class="card-meta">2026-10-18 • 6 min</div></div></a><a href="../writing-like-a-gardener/" class="card" style="margin:0"><div class="card-body"><div class="kicker">Creativity</div><h3 style="font-size:18px">Writing Like a Gardener</h3><div class="card-meta">2026-10-12 • 3 min</div></div></a></div></div>
+</main>
+<footer><div class="container">© The Writing Wall — <a href="../../">Back to wall</a></div></footer>
+<script>
+const b=document.getElementById('themeBtn');const s=localStorage.getItem('tww-theme');if(s)document.documentElement.setAttribute('data-theme',s);if(b){b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☾':'☀';b.addEventListener('click',()=>{const cur=document.documentElement.getAttribute('data-theme');const nxt=cur==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',nxt);localStorage.setItem('tww-theme',nxt);b.textContent=nxt==='dark'?'☾':'☀';});}
+window.addEventListener('scroll',()=>{const h=document.documentElement;const sc=h.scrollTop;const max=h.scrollHeight-h.clientHeight;document.getElementById('progress').style.width=(sc/max*100)+'%';});
+</script>
+</body>
+</html>
