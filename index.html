@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Writing Wall</title>
+<meta name="description" content="A Pinterest-like writing wall — poems, thoughts, Bengali writings.">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF7ED;
+  --bg-2:#FFEDD5;
+  --bg-3:#FFF8F0;
+  --text:#2d1f1a;
+  --text-soft:#7a665c;
+  --card:#ffffff;
+  --card-hover:#fffffe;
+  --border:#f3e0cc;
+  --accent:#e86a33;
+  --accent-2:#c94d1a;
+  --shadow:0 10px 40px rgba(45,31,26,0.08), 0 2px 10px rgba(45,31,26,0.05);
+  --shadow-hover:0 18px 60px rgba(45,31,26,0.12), 0 4px 16px rgba(45,31,26,0.07);
+  --radius:18px;
+  --toggle-bg:#2d1f1a;
+  --toggle-fg:#FFF7ED;
+}
+[data-theme="dark"]{
+  --bg:#15100e;
+  --bg-2:#201a17;
+  --bg-3:#1a1513;
+  --text:#f5ece6;
+  --text-soft:#b9a89e;
+  --card:#221c19;
+  --card-hover:#2a2220;
+  --border:#342a26;
+  --accent:#ff8a5b;
+  --accent-2:#ff6f35;
+  --shadow:0 10px 40px rgba(0,0,0,0.4);
+  --shadow-hover:0 18px 60px rgba(0,0,0,0.55);
+  --toggle-bg:#FFF7ED;
+  --toggle-fg:#15100e;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background: radial-gradient(1200px 600px at 10% -10%, var(--bg-2) 0%, transparent 60%),
+             radial-gradient(900px 500px at 90% 0%, #ffe4c7 0%, transparent 55%),
+             var(--bg);
+  color:var(--text);
+  font-family:"Noto Sans Bengali","Plus Jakarta Sans",system-ui,sans-serif;
+  transition: background 0.4s ease, color 0.3s ease;
+}
+[data-theme="dark"] body{
+  background: radial-gradient(1200px 600px at 10% -10%, #2a1f1b 0%, transparent 60%), var(--bg);
+}
+a{color:inherit}
+.topbar{
+  position:sticky;top:0;z-index:40;
+  backdrop-filter: blur(14px) saturate(1.2);
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;
+}
+.logo{
+  display:flex;align-items:center;gap:12px;
+  text-decoration:none; cursor:pointer;
+}
+.logo-mark{
+  width:40px;height:40px;border-radius:12px;
+  background:var(--text);color:var(--bg);
+  display:grid;place-items:center;
+  font-family:"Fraunces";font-weight:700;font-size:20px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+}
+.logo:hover .logo-mark{transform: rotate(-6deg) scale(1.05);}
+.logo-text{font-family:"Fraunces";font-weight:700;font-size:21px;letter-spacing:-0.02em}
+.logo-sub{font-family:"Plus Jakarta Sans";font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-soft);margin-top:-2px}
+
+.top-actions{display:flex;align-items:center;gap:10px}
+.btn{
+  border:1px solid var(--border);background:var(--card);color:var(--text);
+  padding:9px 14px;border-radius:999px;font-size:13px;font-family:"Plus Jakarta Sans";
+  cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+  transition: all 0.2s ease;
+}
+.btn:hover{transform: translateY(-1px);box-shadow: var(--shadow);border-color: var(--text-soft)}
+.btn-accent{background: var(--text);color:var(--bg);border-color:var(--text)}
+[data-theme="dark"] .btn-accent{background: var(--bg);color:var(--text)}
+
+/* Toggle - HIGHLY VISIBLE in both modes */
+.theme-toggle{
+  width:58px;height:34px;border-radius:999px;
+  background: var(--toggle-bg);
+  border:2px solid var(--border);
+  position:relative;cursor:pointer;
+  display:grid;place-items:center;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.2), 0 2px 10px rgba(0,0,0,0.12);
+  transition: all 0.25s ease;
+}
+.theme-toggle:hover{transform: scale(1.05)}
+.toggle-knob{
+  width:26px;height:26px;border-radius:50%;
+  background: var(--toggle-fg);
+  position:absolute;left:3px;top:3px;
+  display:grid;place-items:center;
+  font-size:14px;
+  transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+[data-theme="dark"] .toggle-knob{transform: translateX(24px)}
+.toggle-label{position:absolute;opacity:0;pointer-events:none}
+
+.wrap{max-width:1280px;margin:0 auto;padding:28px 18px 80px}
+.hero{
+  padding:18px 4px 22px;
+  display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:18px
+}
+.hero h1{font-family:"Fraunces";font-size: clamp(32px, 5vw, 52px);line-height:0.95;letter-spacing:-0.04em;margin:0}
+.hero h1 em{font-family:"Fraunces";font-style:italic;font-weight:400;color:var(--accent)}
+.hero p{max-width:520px;color:var(--text-soft);font-size:15px;line-height:1.6;margin:8px 0 0}
+.controls{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0 18px
+}
+.search{
+  flex:1;min-width:220px;max-width:420px;
+  display:flex;align-items:center;gap:10px;
+  background:var(--card);border:1px solid var(--border);border-radius:999px;
+  padding:10px 14px;box-shadow: var(--shadow);
+}
+.search input{border:0;outline:0;background:transparent;width:100%;font-size:14px;color:var(--text);font-family:"Plus Jakarta Sans"}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--border);background:var(--card);padding:6px 12px;border-radius:999px;font-size:12px;cursor:pointer;transition:0.2s}
+.chip.active, .chip:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+[data-theme="dark"] .chip.active{color:var(--toggle-fg);background:var(--toggle-bg)}
+
+/* 4 equal boxes per row */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:18px;
+}
+@media(max-width:1100px){.grid{grid-template-columns: repeat(3,1fr)}}
+@media(max-width:760px){.grid{grid-template-columns: repeat(2,1fr)}}
+@media(max-width:520px){.grid{grid-template-columns: 1fr}}
+
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 18px 16px; box-shadow: var(--shadow);
+  cursor:pointer; display:flex;flex-direction:column; gap:10px;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+  min-height: 168px;
+}
+.card:hover{transform: translateY(-4px);box-shadow: var(--shadow-hover);background:var(--card-hover)}
+.card.pinned{border:1.5px solid var(--accent);position:relative}
+.card.pinned::before{content:"PINNED";position:absolute;top:12px;right:12px;font-size:10px;letter-spacing:0.12em;background:var(--accent);color:white;padding:3px 8px;border-radius:999px}
+.card-head{display:flex;justify-content:space-between;gap:8px;align-items:start}
+.card-title{font-family:"Fraunces";font-size:19px;line-height:1.2;letter-spacing:-0.02em;margin:0}
+.card-date{font-size:11px;color:var(--text-soft);font-family:"Plus Jakarta Sans";white-space:nowrap;margin-top:4px}
+.card-excerpt{font-size:14px;line-height:1.6;color:var(--text-soft);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.card-meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:auto;padding-top:6px}
+.meta-pill{font-size:11px;border:1px dashed var(--border);padding:3px 8px;border-radius:999px;color:var(--text-soft)}
+.tag{font-size:11px;background: color-mix(in srgb, var(--bg-2) 70%, var(--card));border:1px solid var(--border);padding:4px 9px;border-radius:999px}
+
+/* Modal */
+.overlay{position:fixed;inset:0;background: rgba(20,12,10,0.48);backdrop-filter: blur(8px);z-index:80;display:none;place-items:center;padding:20px}
+.overlay.open{display:grid}
+.modal{max-width:760px;width:100%;max-height:90vh;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:22px;box-shadow:0 30px 90px rgba(0,0,0,0.35);padding:26px}
+.modal h2{font-family:"Fraunces";font-size:32px;line-height:1.05;letter-spacing:-0.03em;margin:0 0 6px}
+.md{font-size:16.5px;line-height:1.75;color:var(--text)}
+.md b, .md strong{font-weight:700}
+.md em{font-style:italic}
+.md code{font-family:ui-monospace,monospace;background:var(--bg-2);border:1px solid var(--border);padding:2px 6px;border-radius:6px;font-size:0.9em}
+.md a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.md ul{padding-left:20px}
+.modal-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.footer{margin-top:48px;border-top:1px solid var(--border);padding-top:22px;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;color:var(--text-soft);font-size:13px;font-family:"Plus Jakarta Sans"}
+.footer a{color:var(--text-soft);text-decoration:none}
+.footer a:hover{color:var(--text);text-decoration:underline}
+.status{font-size:12px;color:var(--text-soft);font-family:"Plus Jakarta Sans";margin-left:4px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html" title="Home - The Writing Wall">
+    <div class="logo-mark">W</div>
+    <div>
+      <div class="logo-text">The Writing Wall</div>
+      <div class="logo-sub">Pinterest · Writings</div>
+    </div>
+  </a>
+  <div class="top-actions">
+    <span class="status" id="status">v5.4 hybrid</span>
+    <button class="btn" id="shuffleBtn" title="Random post">🎲 Shuffle</button>
+    <button class="btn" id="sortBtn" title="Toggle sort">↕ Newest</button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <div class="toggle-knob" id="toggleKnob">☀️</div>
+      <span class="toggle-label">Toggle</span>
+    </button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <h1>Writings that <em>stay.</em></h1>
+      <p>A warm, minimal, Pinterest-like wall for poems, Bengali thoughts, essays. No backend, no trackers — just words. Now reads <code>data.json</code> first, falls back to embedded DATA.</p>
+    </div>
+  </div>
+
+  <div class="controls">
+    <label class="search"><span>🔍</span><input id="q" type="search" placeholder="Search keywords, tags, title..."></label>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="footer">
+    <div>© 2026 The Writing Wall · Built frontend-only for GitHub Pages</div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:start">
+      <div>
+        <h2 id="mTitle"></h2>
+        <div id="mMeta" class="meta-pill" style="display:inline-block;margin-top:6px"></div>
+      </div>
+      <button class="btn" id="closeBtn">✕</button>
+    </div>
+    <div id="mContent" class="md" style="margin-top:18px"></div>
+    <div class="modal-actions">
+      <button class="btn btn-accent" id="copyBtn">⎙ Copy link</button>
+      <button class="btn" id="shareBtn">↗ Share</button>
+      <button class="btn" id="copyTextBtn">Copy text</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// === v5.4 HYBRID DATA LOADER ===
+const DATA = [
+  {
+    "id": 1,
+    "title": "প্রথম লেখা — First Light",
+    "date": "2026-10-25",
+    "tags": [
+      "poem",
+      "bengali",
+      "thought"
+    ],
+    "content": "This is my **first post** on The Writing Wall.\n\nIt supports *italic*, **bold**, `inline code`, and [links](https://example.com).\n\n- Supports list\n- Bengali: আমার লেখা, আমার ভাবনা\n- Click to read full view",
+    "pinned": true
+  },
+  {
+    "id": 2,
+    "title": "Night Thoughts",
+    "date": "2026-10-24",
+    "tags": [
+      "thought",
+      "night"
+    ],
+    "content": "Some nights are *heavy* with thoughts.\n\n**Writing** helps.\n\n`code` looks like this.",
+    "pinned": false
+  },
+  {
+    "id": 3,
+    "title": "On Minimalism",
+    "date": "2026-10-20",
+    "tags": [
+      "essay",
+      "life"
+    ],
+    "content": "Minimal is **not empty**. Minimal is *intentional*.\n\nA writing wall should be like that.",
+    "pinned": false
+  },
+  {
+    "id": 4,
+    "title": "বাংলায় লেখা",
+    "date": "2026-10-18",
+    "tags": [
+      "bengali",
+      "poem"
+    ],
+    "content": "বাংলা ভাষায় লেখার আনন্দই আলাদা।\n\n**The Writing Wall** supports Noto Sans Bengali fully.\n\n- কবিতা\n- গল্প\n- ভাবনা",
+    "pinned": false
+  },
+  {
+    "id": 5,
+    "title": "Why Frontend Only?",
+    "date": "2026-10-15",
+    "tags": [
+      "meta",
+      "thought"
+    ],
+    "content": "No backend = no bills, no downtime.\n\nPerfect for a personal wall. Check [GitHub Pages](https://pages.github.com).",
+    "pinned": false
+  },
+  {
+    "id": 6,
+    "title": "Ideas for Tomorrow",
+    "date": "2026-10-10",
+    "tags": [
+      "ideas",
+      "list"
+    ],
+    "content": "- Add search\n- Add tags\n- Keep it warm and aesthetic\n\n`const future = ideas`",
+    "pinned": false
+  }
+];
+
+let POSTS = [];
+let sortNewest = true;
+let activeTag = null;
+
+function parseDate(d){ return new Date(d); }
+
+function markdownLite(md){
+  // escape html first
+  let s = md.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  // bold **text**
+  s = s.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+  // italic *text* (avoid **)
+  s = s.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g,"<em>$1</em>");
+  // inline code `code`
+  s = s.replace(/`([^`]+)`/g,"<code>$1</code>");
+  // links [text](url)
+  s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+  // list - lines
+  s = s.replace(/^\s*-\s+(.+)$/gm,"<li>$1</li>");
+  s = s.replace(/(<li>.*<\/li>)/s, m => "<ul>"+m+"</ul>");
+  // paragraphs
+  s = s.split(/\n{2,}/).map(p=> {
+    p=p.trim();
+    if(!p) return "";
+    if(p.startsWith("<ul>") || p.startsWith("<li>")) return p;
+    return "<p>"+p.replace(/\n/g,"<br>")+"</p>";
+  }).join("");
+  return s;
+}
+function excerpt(text){ return text.slice(0,160).replace(/\n/g," ").trim(); }
+function readingTime(text){ const w=text.split(/\s+/).length; return Math.max(1, Math.ceil(w/200)); }
+
+async function loadData(){
+  const status = document.getElementById("status");
+  try{
+    const res = await fetch("data.json", {cache:"no-store"});
+    if(!res.ok) throw new Error("fetch failed "+res.status);
+    const j = await res.json();
+    if(!Array.isArray(j) || j.length===0) throw new Error("empty json");
+    POSTS = j;
+    status.textContent = "v5.4 • live from data.json";
+  }catch(e){
+    console.warn("data.json failed, using embedded DATA", e);
+    POSTS = DATA.slice();
+    status.textContent = "v5.4 • fallback embedded DATA";
+  }
+  renderChips();
+  render();
+}
+
+function renderChips(){
+  const allTags = [...new Set(POSTS.flatMap(p=>p.tags||[]))].sort();
+  const chipsEl = document.getElementById("chips");
+  chipsEl.innerHTML = '<button class="chip '+(activeTag===null?'active':'')+'" data-tag="">All</button>' + allTags.map(t=> `<button class="chip ${activeTag===t?'active':''}" data-tag="${t}">#${t}</button>`).join("");
+  chipsEl.querySelectorAll(".chip").forEach(btn=>{
+    btn.onclick=()=>{
+      activeTag = btn.dataset.tag || null;
+      renderChips(); render();
+    };
+  });
+}
+
+function filtered(){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  let list = POSTS.slice();
+  list.sort((a,b)=> sortNewest ? parseDate(b.date)-parseDate(a.date) : parseDate(a.date)-parseDate(b.date));
+  if(activeTag) list = list.filter(p=> (p.tags||[]).includes(activeTag));
+  if(q){
+    list = list.filter(p=> (p.title+" "+p.content+" "+(p.tags||[]).join(" ")).toLowerCase().includes(q));
+  }
+  return list;
+}
+
+function render(){
+  const grid = document.getElementById("grid");
+  const list = filtered();
+  if(list.length===0){ grid.innerHTML = '<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--text-soft)">No posts found.</div>'; return; }
+  grid.innerHTML = list.map(p=>{
+    const rt = readingTime(p.content);
+    const wc = p.content.split(/\s+/).length;
+    return `<article class="card ${p.pinned?'pinned':''}" data-id="${p.id}">
+      <div class="card-head">
+        <h3 class="card-title">${escapeHtml(p.title)}</h3>
+        <div class="card-date">${escapeHtml(p.date)}</div>
+      </div>
+      <div class="card-excerpt">${escapeHtml(excerpt(p.content))}</div>
+      <div class="card-meta">
+        <span class="meta-pill">${rt} min · ${wc} words</span>
+        ${(p.tags||[]).slice(0,3).map(t=>`<span class="tag">#${escapeHtml(t)}</span>`).join("")}
+      </div>
+    </article>`;
+  }).join("");
+  grid.querySelectorAll(".card").forEach(el=>{
+    el.onclick=()=> openPost(Number(el.dataset.id));
+  });
+}
+
+function escapeHtml(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+let currentId=null;
+function openPost(id){
+  const p = POSTS.find(x=>x.id===id);
+  if(!p) return;
+  currentId=id;
+  document.getElementById("mTitle").textContent = p.title;
+  document.getElementById("mMeta").textContent = `${p.date} · ${readingTime(p.content)} min read · ${p.content.split(/\s+/).length} words ${p.pinned?'· PINNED':''}`;
+  document.getElementById("mContent").innerHTML = markdownLite(p.content) + `<div style="margin-top:18px;display:flex;gap:6px;flex-wrap:wrap">${(p.tags||[]).map(t=>`<span class="tag">#${escapeHtml(t)}</span>`).join("")}</div>`;
+  document.getElementById("overlay").classList.add("open");
+  history.replaceState(null,"","#post-"+id);
+}
+function closePost(){
+  document.getElementById("overlay").classList.remove("open");
+  if(location.hash.startsWith("#post-")) history.replaceState(null,""," ");
+}
+
+document.getElementById("overlay").addEventListener("click", e=>{ if(e.target.id==="overlay") closePost(); });
+document.getElementById("closeBtn").onclick=closePost;
+document.getElementById("q").addEventListener("input", render);
+document.getElementById("sortBtn").onclick=()=>{
+  sortNewest=!sortNewest;
+  document.getElementById("sortBtn").textContent = sortNewest ? "↕ Newest" : "↕ Oldest";
+  render();
+};
+document.getElementById("shuffleBtn").onclick=()=>{
+  if(POSTS.length===0) return;
+  const r = POSTS[Math.floor(Math.random()*POSTS.length)];
+  openPost(r.id);
+};
+
+// Copy / share
+document.getElementById("copyBtn").onclick=async()=>{
+  const url = location.href;
+  try{ await navigator.clipboard.writeText(url); alert("Link copied!"); }catch{ prompt("Copy link:", url); }
+};
+document.getElementById("shareBtn").onclick=async()=>{
+  const url = location.href;
+  const p = POSTS.find(x=>x.id===currentId);
+  if(navigator.share){ try{ await navigator.share({title:p?.title||"The Writing Wall", url}); }catch{} } else { await navigator.clipboard.writeText(url); alert("Link copied for sharing!"); }
+};
+document.getElementById("copyTextBtn").onclick=async()=>{
+  const p = POSTS.find(x=>x.id===currentId);
+  if(!p) return;
+  try{ await navigator.clipboard.writeText(p.content); alert("Text copied!"); }catch{ prompt("Copy:", p.content); }
+};
+
+// Theme toggle - visible in both modes
+const toggle = document.getElementById("themeToggle");
+const knob = document.getElementById("toggleKnob");
+function applyTheme(t){
+  document.documentElement.setAttribute("data-theme", t);
+  localStorage.setItem("ww-theme", t);
+  knob.textContent = t==="dark" ? "🌙" : "☀️";
+}
+const saved = localStorage.getItem("ww-theme");
+applyTheme(saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+toggle.onclick=()=>{
+  const cur = document.documentElement.getAttribute("data-theme");
+  applyTheme(cur==="dark" ? "light" : "dark");
+};
+
+// Init
+loadData().then(()=>{
+  const m = location.hash.match(/post-(\d+)/);
+  if(m) openPost(Number(m[1]));
+});
+</script>
+</body>
+</html>

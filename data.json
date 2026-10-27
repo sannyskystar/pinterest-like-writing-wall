@@ -1,0 +1,69 @@
+[
+  {
+    "id": 1,
+    "title": "প্রথম লেখা — First Light",
+    "date": "2026-10-25",
+    "tags": [
+      "poem",
+      "bengali",
+      "thought"
+    ],
+    "content": "This is my **first post** on The Writing Wall.\n\nIt supports *italic*, **bold**, `inline code`, and [links](https://example.com).\n\n- Supports list\n- Bengali: আমার লেখা, আমার ভাবনা\n- Click to read full view",
+    "pinned": true
+  },
+  {
+    "id": 2,
+    "title": "Night Thoughts",
+    "date": "2026-10-24",
+    "tags": [
+      "thought",
+      "night"
+    ],
+    "content": "Some nights are *heavy* with thoughts.\n\n**Writing** helps.\n\n`code` looks like this.",
+    "pinned": false
+  },
+  {
+    "id": 3,
+    "title": "On Minimalism",
+    "date": "2026-10-20",
+    "tags": [
+      "essay",
+      "life"
+    ],
+    "content": "Minimal is **not empty**. Minimal is *intentional*.\n\nA writing wall should be like that.",
+    "pinned": false
+  },
+  {
+    "id": 4,
+    "title": "বাংলায় লেখা",
+    "date": "2026-10-18",
+    "tags": [
+      "bengali",
+      "poem"
+    ],
+    "content": "বাংলা ভাষায় লেখার আনন্দই আলাদা।\n\n**The Writing Wall** supports Noto Sans Bengali fully.\n\n- কবিতা\n- গল্প\n- ভাবনা",
+    "pinned": false
+  },
+  {
+    "id": 5,
+    "title": "Why Frontend Only?",
+    "date": "2026-10-15",
+    "tags": [
+      "meta",
+      "thought"
+    ],
+    "content": "No backend = no bills, no downtime.\n\nPerfect for a personal wall. Check [GitHub Pages](https://pages.github.com).",
+    "pinned": false
+  },
+  {
+    "id": 6,
+    "title": "Ideas for Tomorrow",
+    "date": "2026-10-10",
+    "tags": [
+      "ideas",
+      "list"
+    ],
+    "content": "- Add search\n- Add tags\n- Keep it warm and aesthetic\n\n`const future = ideas`",
+    "pinned": false
+  }
+]
